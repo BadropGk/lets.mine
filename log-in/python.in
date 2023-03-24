@@ -1,0 +1,21 @@
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # retrieve form data
+        email = request.form['email']
+        password = request.form['password']
+
+        # find user in database by email
+        user = User.query.filter_by(email=email).first()
+
+        # check if user exists and password is correct
+        if user and user.check_password(password):
+            # log user in and redirect to home page
+            login_user(user)
+            return redirect('/')
+        else:
+            # display error message
+            return 'Invalid email or password'
+    else:
+        # display login form
+        return render_template('login.html')
