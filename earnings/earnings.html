@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Earnings Page</title>
+  </head>
+  <body>
+    <h1>Earnings</h1>
+    
+    <p>Welcome {{ username }}, here are your earnings:</p>
+    
+    <table>
+      <tr>
+        <th>Package</th>
+        <th>Earnings per day</th>
+        <th>Total earnings for 3 months</th>
+      </tr>
+      {% for package in packages %}
+      <tr>
+        <td>{{ package.capitalize() }}</td>
+        <td>Ksh {{ packages[package]['daily_earnings'] }}</td>
+        <td>Ksh {{ total_earnings[package] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
