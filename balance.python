@@ -1,0 +1,45 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+# Dummy data for demonstration purposes
+user_data = {
+    "name": "John Doe",
+    "balance": 5000,
+    "earnings": {
+        "bronze": 5400,
+        "silver": 11200,
+        "gold": 19500,
+        "combined": 40500
+    }
+}
+
+@app.route("/balance", methods=["GET", "POST"])
+def balance():
+    if request.method == "POST":
+        amount = int(request.form.get("amount"))
+
+        if request.form.get("action") == "deposit":
+            if amount < 900:
+                return "Minimum deposit is KES 900."
+
+            # Perform deposit transaction and update user balance
+            user_data["balance"] += amount
+
+        elif request.form.get("action") == "withdraw":
+            if amount < 2000:
+                return "Minimum withdrawal amount is KES 2000."
+
+            # Perform withdrawal transaction and update user balance
+            if amount > user_data["balance"]:
+                return "Insufficient balance."
+            
+            user_data["balance"] -= amount
+
+        # Redirect to balance page after transaction
+        return render_template("balance.html", user=user_data)
+
+    return render_template("balance.html", user=user_data)
+
+if __name__ == "__main__":
+    app.run(debug=True)
