@@ -1,0 +1,41 @@
+from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    provider = db.Column(db.String(20), nullable=False)
+    country = db.Column(db.String(50), nullable=False)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        provider = request.form['provider']
+        country = request.form['country']
+
+        # validate password
+        if len(password) < 8:
+            return 'Password must be at least 8 characters long'
+
+        # create new user and add to database
+        new_user = User(email=email, password=password, provider=provider, country=country)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect('/')
+    else:
+        return render_template('signup.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)

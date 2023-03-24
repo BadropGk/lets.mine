@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+</head>
+<body>
+	<h1>Sign Up</h1>
+	<form method="post" action="/signup">
+		<label>Email:</label>
+		<input type="email" name="email" required><br>
+		<label>Password:</label>
+		<input type="password" name="password" required><br>
+		<label>Provider:</label>
+		<select name="provider">
+			<option value="google">Google</option>
+			<option value="facebook">Facebook</option>
+			<option value="phone">Phone Number</option>
+		</select><br>
+		<label>Country:</label>
+		<select name="country">
+			<option value="USA">USA</option>
+			<option value="Canada">Canada</option>
+			<option value="UK">UK</option>
+			<option value="Australia">Australia</option>
+		</select><br>
+		<input

@@ -1,0 +1,21 @@
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        # retrieve form data and validate password
+        email = request.form['email']
+        password = request.form['password']
+        provider = request.form['provider']
+        country = request.form['country']
+
+        if len(password) < 8:
+            return 'Password must be at least 8 characters long'
+
+        # create new user and add to database
+        new_user = User(email=email, password=password, provider=provider, country=country)
+        db.session.add(new_user)
+        db.session.commit()
+
+        # redirect to login page
+        return redirect('/login')
+    else:
+        return render_template('signup.html')
