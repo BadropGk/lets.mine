@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Website</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<header>
+		<nav>
+			<ul class="dropdown">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Balance</a></li>
+				<li><a href="#">Spin</a></li>
+				<li><a href="#">Packages</a></li>
+				<li><a href="#">Earnings</a></li>
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Contact Us</a></li>
+				<li><a href="{{ url_for('login') }}">Login</a></li>
+				<li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<h1>Welcome to my website!</h1>
+		<p>Here you can find all the information about our products and services.</p>
+	</main>
+	<footer>
+		<p>&copy; 2023 My Website</p>
+	</footer>
+</body>
+</html>
